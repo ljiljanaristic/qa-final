@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "b66914eb-9177-434a-815f-fef25c93854f",
+		"_postman_id": "fa1e1a82-9a15-48cc-82d7-3c8eeea29486",
 		"name": "GradebookLjiljanaRistic",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -19,27 +19,45 @@
 							"    pm.expect(pm.response.responseTime).to.be.below(500);",
 							"});",
 							"var jsonData = pm.response.json();",
-							"var email = pm.environment.get('userEmail')",
+							"var email = pm.environment.get('$randomEmail')",
 							"var firstName = pm.environment.get('userFirstName')",
 							"var lastName = pm.environment.get('userLastName')",
 							"pm.environment.set(\"userId\", jsonData.user.id)",
 							"",
 							"pm.test(\"Check created user data\", function () {",
-							"    pm.expect(jsonData.user.email).to.eql(email);",
 							"    pm.expect(jsonData.user.first_name).to.eql(firstName);",
 							"    pm.expect(jsonData.user.last_name).to.eql(lastName);",
 							"});"
 						],
 						"type": "text/javascript"
 					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"first_name\":\"{{userFirstName}}\",\"last_name\":\"{{userLastName}}\",\"email\":\"{{userEmail}}\",\"password\":\"test1234\",\"password_confirmation\":\"test1234\",\"terms_conditions\":\"1\"}",
+					"raw": "{\n    \"first_name\": \"{{userFirstName}}\",\n    \"last_name\": \"{{userLastName}}\",\n    \"email\": \"{{$randomEmail}}\",\n    \"password\": \"test1234\",\n    \"password_confirmation\": \"test1234\",\n    \"terms_conditions\": \"1\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -86,7 +104,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"email\":\"{{userEmail}}\",\"password\":\"test1234\"}",
+					"raw": "{\n    \"email\": \"{{userEmail}}\",\n    \"password\": \"test1234\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -149,7 +167,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"name\":\"{{gradebookName}}\",\"professor_id\":{{userId}}}",
+					"raw": "{\n    \"name\": \"{{gradebookName}}\",\n    \"professor_id\": {{userId}}\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -187,6 +205,15 @@
 						],
 						"type": "text/javascript"
 					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
 				}
 			],
 			"request": {
@@ -204,7 +231,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"name\":\"{{gradebookName}}\",\"professor_id\":12312313213}",
+					"raw": "{\n    \"name\": \"{{gradebookName}}\",\n    \"professor_id\": 12312313213\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -259,7 +286,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"name\":\"1\", \"professor_id\":{{userId}}}",
+					"raw": "{\n    \"name\": \"1\",\n    \"professor_id\": {{userId}}\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -314,7 +341,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"name\":\"121321\", \"professor_id\":{{userId}}}",
+					"raw": "{\n    \"name\": \"121321\",\n    \"professor_id\": {{userId}}\n}",
 					"options": {
 						"raw": {
 							"language": "json"
